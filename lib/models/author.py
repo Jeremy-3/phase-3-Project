@@ -15,7 +15,7 @@ class Author:
         return self.__name
     
     @name.setter
-    def set_name(self,name):
+    def name(self,name):
         if isinstance(name,str) and len(name):
             self._name = name
         else:
@@ -26,7 +26,7 @@ class Author:
         return self._genre
     
     @genre.setter
-    def set_genre(self,genre):
+    def genre(self,genre):
         if isinstance(genre,str) and len(genre):
             self._genre = genre
         else:
