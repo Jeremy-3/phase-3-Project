@@ -60,6 +60,9 @@ def update_author():
             author.name=name
             genre = input("Enter Author's new genre:")
             author.genre = genre
+            print(f"success:{author}")
+            
+            author.update()
         except Exception as exc:
             print("Error in updating Author kindly check your input and try again:",exc)
             
@@ -129,17 +132,18 @@ def create_new_book():
 
 def update_book():
     print("Getting Updates....")
-    id = input("Enter Book's ID for updates")
+    id = input("Enter Book's ID for updates:")
     if book := Book.find_by_id(id):
         try:
             title = input("Enter book's new title:")
             book.title=title
             genre = input("Enter book's new genre:")
             book.genre = genre
-            year_published=input("Enter book's new year of publish:")
+            year_published=int(input("Enter book's new year of publish:"))
             book.year_published = year_published
-            author_id=input("Enter book's new Author Id:")
+            author_id=int(input("Enter book's new Author Id:"))
             book.author_id = author_id
+            print(f"Success:{book}")
             
             book.update()
             print(f"Success{book}")

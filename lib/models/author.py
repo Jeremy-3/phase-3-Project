@@ -30,7 +30,7 @@ class Author:
     @genre.setter
     def genre(self,genre):
         if isinstance(genre,str) and len(genre):
-            self._genre = genre
+            self._genre = genre.title()
         else:
             raise ValueError("Genre cannot  not be an empty string !")  
         
