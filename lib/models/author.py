@@ -86,7 +86,7 @@ class Author:
             DELETE FROM authors 
             WHERE id = ?
         ''' 
-        CURSOR.execute(sql,(self.id))
+        CURSOR.execute(sql,(self.id,))
         CONN.commit()   
         
         del type(self).all[self.id]

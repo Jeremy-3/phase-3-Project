@@ -150,7 +150,7 @@ def update_book():
 def delete_book():
     print("Marking Deletion...")
     id = input("Enter the Book's ID you wish to terminate:")
-    if book := Book.find_book_by_id(id):
+    if book := Book.find_by_id(id):
         book.delete()
         print(f"Book {id} has been deleted")
     else:
