@@ -131,4 +131,32 @@ class Book:
         rows = CURSOR.execute(sql).fetchall()
         
         return - [cls.all_instances(row) for row in rows]         
-            
+    
+    @classmethod
+    def find_by_id(cls,id):
+        sql='''
+            SELECT * FROM books
+            WHERE id = ?
+        '''
+        row=CURSOR.execute(sql,(id,)).fetchone()
+        return cls.all_instances(row) if row else None
+    
+    @classmethod
+    def find_by_title(cls,title):
+        sql='''
+            SELECT * FROM books
+            WHERE title is ?
+        '''
+        row=CURSOR.execute(sql,(title,)).fetchone()
+        return cls.all_instances(row) if row else None
+    
+    @classmethod
+    def find_by_year(cls,year_published):
+        sql='''
+            SELECT * FROM books
+            WHERE year_published is ?
+        '''
+        row=CURSOR.execute(sql,(year_published,)).fetchone()
+        return cls.all_instances(row) if row else None
+    
+           
