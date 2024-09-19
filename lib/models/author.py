@@ -10,7 +10,7 @@ class Author:
         self.genre = genre
         
     def __repr__(self):
-        return f"<Author {self.id}: {self.name} writes {self.genre}"
+        return f"<Author {self.id}: {self.name} writes {self.genre}>"
     
     @property
     def name(self):

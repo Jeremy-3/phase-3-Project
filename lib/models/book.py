@@ -12,7 +12,7 @@ class Book:
         self.author_id = author_id
         
     def __repr__(self):
-        return f"<Book {self.id} title:{self.title} genre:{self.genre} year:{self.year_published} Author is{self.author_id}>"
+        return f"<Book {self.id} title:{self.title} genre:{self.genre} year:{self.year_published} Author is: {self.author_id}>"
         
     @property
     def title(self):
@@ -34,7 +34,7 @@ class Book:
         if isinstance(genre,str) and len(genre):
             self._genre = genre
         else:
-            raise("Genre cannot be an empty string !") 
+            raise ValueError("Genre cannot be an empty string !") 
     
     @property
     def year_published(self):
@@ -115,11 +115,11 @@ class Book:
         if book:
             book.title = row[1]
             book.genre = row[2]
-            book.year_published[3]
+            book.year_published=row[3]
             book.author_id = row[4]
         else:
             book = cls(row[1],row[2],row[3],row[4])
-            book.id - row[0]
+            book.id = row[0]
             cls.all[book.id] = book
         return book 
     
@@ -130,7 +130,7 @@ class Book:
         '''   
         rows = CURSOR.execute(sql).fetchall()
         
-        return - [cls.all_instances(row) for row in rows]         
+        return  [cls.all_instances(row) for row in rows]         
     
     @classmethod
     def find_by_id(cls,id):
