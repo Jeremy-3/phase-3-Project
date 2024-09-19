@@ -83,3 +83,23 @@ class Book:
         book = cls(title,genre,year_published,author_id)
         book.save()
         return book    
+    
+    
+    def update(self):
+        sql='''
+            UPDATE books
+            SET title = ? ,genre = ?,year_published = ?,author_id = ?
+            WHERE id = ?
+        '''
+        CURSOR.execute(sql,(self.title,self.genre,self.year_published,self.author_id,self.id))
+        CONN.commit()
+    
+    def delete(self):
+        sql='''
+           DELETE FROM books 
+           WHERE id = ?  
+        '''    
+        CURSOR.execute(sql,(self.id))
+        CONN.commit()
+        del type(self).all[self.id]
+        self.id = None

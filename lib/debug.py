@@ -13,6 +13,8 @@ def reset_database():
     author1 = Author.create("J.k Rowling","Fantasy")
     book1 = Book.create("harry potter and the sorcerer's stone","fantasy",1997,author1.id) 
 
+    book1.title = "harry potter"
+    book1.update()
 
 reset_database()
 ipdb.set_trace()
