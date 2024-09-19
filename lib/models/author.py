@@ -63,6 +63,7 @@ class Author:
             CURSOR.execute(sql,(self.name,self.genre))
             CONN.commit()
             self.id = CURSOR.lastrowid
+            type(self).all[self.id] = self
             
     @classmethod
     def create(cls,name,genre):
