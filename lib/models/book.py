@@ -4,20 +4,21 @@ class Book:
     def __init__(self,title,genre,year_published,author_id,id=None):
         self.id = id
         self.title = title
+        self.genre = genre
         self.year_published = year_published
         self.author_id = author_id
         
     def __repr__(self):
-        print (f"<Book {self.id} title:{self.title} genre:{self.genre} year:{self.year_published} Author is{self.author_id}>")
+        return f"<Book {self.id} title:{self.title} genre:{self.genre} year:{self.year_published} Author is{self.author_id}>"
         
     @property
     def title(self):
         return self._title 
     
     @title.setter
-    def set_title(self,title):
+    def title(self,title):
         if isinstance(title,str) and len(title):
-            self._title = title.capitalize()
+            self._title = title.title()
         else:
             raise ValueError("Title cannot be an empty string !")
         
@@ -28,7 +29,7 @@ class Book:
     @genre.setter
     def genre(self,genre):
         if isinstance(genre,str) and len(genre):
-            self.genre = genre
+            self._genre = genre
         else:
             raise("Genre cannot be an empty string !") 
     
@@ -37,13 +38,13 @@ class Book:
         return self._year_published
     
     @year_published.setter
-    def year(self,year_published):
+    def year_published(self,year_published):
         if not isinstance(year_published,int):
             raise TypeError("Year must be an integer")
         elif year_published < 0 :
             raise ValueError("Year cannot be negative")
         else:
-            self.year = year_published
+            self._year_published = year_published
         
     @classmethod
     def create_table(cls):
@@ -51,7 +52,9 @@ class Book:
             CREATE TABLE IF NOT EXISTS books(
                 id INTEGER PRIMARY KEY,
                 title TEXT,
+                genre TEXT,
                 year_published INTEGER,
+                author_id INTEGER,
                 FOREIGN KEY (author_id) REFERENCES authors(id)
             )
         '''      
@@ -72,4 +75,11 @@ class Book:
             VALUES(?,?,?,?) 
         '''
         CURSOR.execute(sql,(self.title,self.genre,self.year_published,self.author_id))
-        CONN.commit()          
+        CONN.commit()
+        self.id = CURSOR.lastrowid          
+    
+    @classmethod
+    def create(cls,title,genre,year_published,author_id):
+        book = cls(title,genre,year_published,author_id)
+        book.save()
+        return book    

@@ -8,11 +8,11 @@ class Author:
         self.genre = genre
         
     def __repr__(self):
-        print (f"<Author {self.id}: {self.name} writes {self.genre}")
+        return f"<Author {self.id}: {self.name} writes {self.genre}"
     
     @property
     def name(self):
-        return self.__name
+        return self._name
     
     @name.setter
     def name(self,name):
@@ -60,5 +60,10 @@ class Author:
             '''
             CURSOR.execute(sql,(self.name,self.genre))
             CONN.commit()
+            self.id = CURSOR.lastrowid
             
-    
+    @classmethod
+    def create(cls,name,genre):
+        author =cls(name,genre)
+        author.save()
+        return author
