@@ -67,3 +67,25 @@ class Author:
         author =cls(name,genre)
         author.save()
         return author
+    
+    def update(self):
+        sql='''
+            UPDATE authors
+            SET name = ?,
+            genre = ? 
+            WHERE id = ? 
+        '''
+        CURSOR.execute(sql,(self.name,self.genre,self.id))
+        CONN.commit()
+    
+    def delete(self):
+        sql='''
+            DELETE FROM authors 
+            WHERE id = ?
+        ''' 
+        CURSOR.execute(sql,(self.id))
+        CONN.commit()   
+        
+        del type(self).all[self.id]
+        self.id = None
+        
