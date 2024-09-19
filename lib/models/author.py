@@ -58,7 +58,7 @@ class Author:
                 INSERT INTO authors(name,genre)
                 VALUES(?,?) 
             '''
-            CURSOR.execute(sql,(self.name,self.hometown))
+            CURSOR.execute(sql,(self.name,self.genre))
             CONN.commit()
             
     
