@@ -2,6 +2,8 @@ from models._init_ import CONN,CURSOR
 
 class Author:
     
+    all = {}
+    
     def __init__(self,name,genre,id=None):
         self.id = id
         self.name = name
@@ -89,3 +91,27 @@ class Author:
         del type(self).all[self.id]
         self.id = None
         
+    
+    @classmethod
+    def all_instances(cls,row):
+        author = cls.all.get(row[0])
+        if author:
+            author.name=row[1]
+            author.genre=row[2]
+        else:
+            author=cls(row[1],row[2])
+            author.id = row[0]
+            cls.all[author.id] = author
+        return author        
+    
+    
+    @classmethod
+    def get_all(cls):
+        sql='''
+            SELECT * FROM authors
+        '''
+        
+        rows = CURSOR.execute(sql).fetchall()
+        
+        return [cls.all_instances(row) for row in rows]
+   
