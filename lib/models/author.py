@@ -116,3 +116,31 @@ class Author:
         
         return [cls.all_instances(row) for row in rows]
    
+    @classmethod
+    def find_by_id(cls,id):
+        sql='''
+            SELECT * FROM authors
+            WHERE id = ?
+        '''
+        
+        row=CURSOR.execute(sql,(id,)).fetchone()
+        return cls.all_instances(row) if row else None
+    
+    @classmethod
+    def find_by_name(cls,name):
+        sql='''
+            SELECT * FROM authors
+            WHERE name is ?
+        '''
+        row=CURSOR.execute(sql,(name,)).fetchone()
+        return cls.all_instances(row) if row else None
+    
+    @classmethod
+    def find_by_genre(cls,genre):
+        sql='''
+            SELECT * FROM authors
+            WHERE genre is ?
+        '''
+        row=CURSOR.execute(sql,(genre,)).fetchone()
+        return cls.all_instances(row) if row else None
+    
